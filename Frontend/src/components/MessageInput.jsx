@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { useChatStore } from '../store/useChatStore'
+import {Image, Send, X} from "lucide-react"
 
 const MessageInput = () => {
     const [text, settext] = useState("")
@@ -8,15 +9,40 @@ const MessageInput = () => {
     const {sendMessage}=useChatStore()
 
     const handleImageChange =  (e)=>{
+      const file = e.target.files[0]
+      if (!file.type.startsWith("image/")){
+        toast.error("please select a image file")
+        return
+      }
+      const reader = new FileReader()
+      reader.onloadend = ()=>{
+        setimagePreview(reader.result)
+      }
+      reader.readAsDataURL(file)
 
     }
 
     const removeImage = ()=>{
-
+      setimagePreview(null)
+      if (fileInputRef.current) fileInputRef.current.value = "null"
     }
 
     const handleSendMessage = async (e)=>{
+      e.preventDefault();
+    if (!text.trim() && !imagePreview) return;
 
+    try {
+      await sendMessage({
+        text: text.trim(),
+        image: imagePreview,
+      });
+
+      settext("");
+      setimagePreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    } catch (error) {
+      console.error("Failed to send message:", error);
+    }
     }
 
 
@@ -48,10 +74,22 @@ const MessageInput = () => {
 
             <input type="file" accept='image/*' className='hidden' ref={fileInputRef} onChange={handleImageChange} />
 
-            <button>
-                
-            </button>
+            <button
+            type="button"
+            className={`hidden sm:flex btn btn-circle
+                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <Image size={20} />
+          </button>
         </div>
+        <button
+          type="submit"
+          className="btn btn-sm btn-circle"
+          disabled={!text.trim() && !imagePreview}
+        >
+          <Send size={22} />
+        </button>
       </form>
 
     </div>
