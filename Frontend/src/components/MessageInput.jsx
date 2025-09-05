@@ -70,7 +70,7 @@ const MessageInput = () => {
 
       <form onSubmit={handleSendMessage} className='flex items-center gap-2'>
         <div className='flex-1 flex gap-2'>
-            <input type="text" className='w-full input input-borderd rounded-lg input-sm sm:input-md' placeholder='Tpye a message...' value={text} onChange={(e)=>settext(e.target.value)} />
+            <input type="text" className='w-full input input-borderd rounded-lg input-sm sm:input-md' placeholder='Type a message...' value={text} onChange={(e)=>settext(e.target.value)} />
 
             <input type="file" accept='image/*' className='hidden' ref={fileInputRef} onChange={handleImageChange} />
 
