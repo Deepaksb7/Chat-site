@@ -6,7 +6,7 @@ A **full-stack real-time chat application** built with **React** and **Node.js**
 
 ## 🚀 Live Demo
 
-[View Live Application](#) *(Add your live link here)*
+[View Live Application](chat-site-gwiz.onrender.com/) 
 
 ---
 
