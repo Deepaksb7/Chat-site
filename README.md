@@ -67,6 +67,3 @@ A **full-stack real-time chat application** built with **React** and **Node.js**
 - **CORS** – Cross-Origin Resource Sharing
 
 ---
-
-## 📁 Project Structure
-
